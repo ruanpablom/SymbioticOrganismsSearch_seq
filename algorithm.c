@@ -33,14 +33,15 @@ int main(int argc, char **argv){
     double *mediaM;
     struct timeval t1, t2;
     double elapsedTime,total=0;
-    
+    FILE *file;
+
     srand(time(NULL));
 
     if (GetParameters(argv) == -1){	//read input file
         return 0;
     }
     showParameters(FUNCTION, RUN, MAX_ITER, POP_SIZE, DIM);
-
+    
     switch(FUNCTION){
         case 9:
             rest=1;
@@ -128,7 +129,6 @@ int main(int argc, char **argv){
         printf("bestfo: %g\n", bestfo);
         printf("bestfoRUN: %g\n", bestfoRUN);
 	printf("RUN TIME: %.3lfs\n", elapsedTime); 
-
         showConst(var,r);
         printf("N_fit_eval:");
         printf("%i \n\n",num_fit_eval);
@@ -144,7 +144,30 @@ int main(int argc, char **argv){
        }
     }
     int nfeasible = AvgStdDev(&avg,&stdDev,var);
+    
+    file = fopen("resultado.txt","w");
+    if(file == 0){
+        printf("ERRO\n");                                                   
+        return -1;
+    }
+
+    fprintf(file,"====================\n");
+    fprintf(file,"Runs: ");
+    fprintf(file,"Best Fo: ");
+    fprintf(file,"%g\n",bestfoRUN);
+    fprintf(file,"Avg: ");
+    fprintf(file,"%g\n",avg);
+    fprintf(file,"StdDev: ");
+    fprintf(file,"%g\n",stdDev);
+    fprintf(file,"Feasible: ");
+    fprintf(file,"%i\n",nfeasible);
+    fprintf(file,"Avg Time: %.3lfs\n",total/RUN);
+    fprintf(file,"====================\n");
+    
+    fclose(file);
+
     printf("====================\n");
+    printf("Runs: ");
     printf("Best Fo: ");
     printf("%g\n",bestfoRUN);
     printf("Avg: ");
