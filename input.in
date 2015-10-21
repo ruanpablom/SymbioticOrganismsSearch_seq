@@ -1,5 +1,5 @@
 /*Input file*/
-RUN = 10
+RUN = 100
 MAX_ITER = 2500
 POP_SIZE = 30			
 DIM = 10

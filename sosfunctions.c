@@ -784,7 +784,7 @@ double objfunc(double *sol, int cond){
             for (i = 0; i < 10; i++) {
                 somF += ro*area[i]*length[i];
             }
-
+            free(area);
             return somF+top;
         default:
             printf("Info: Invalid function..\n") ;
